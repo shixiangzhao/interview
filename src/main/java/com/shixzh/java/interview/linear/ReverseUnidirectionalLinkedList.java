@@ -24,18 +24,18 @@ public class ReverseUnidirectionalLinkedList {
 		printLinkedList(n1);
 		Node newNode = recursivelyReverse(n1);
 		printLinkedList(newNode);
-		
+
 		Node oldNode = reverse(newNode);
 		printLinkedList(oldNode);
 	}
 
 	private static Node reverse(Node head) {
-		
+
 		Node pre = head;
 		Node cur = head.getNext();
 		Node post = null;
-		//save 3 node: pre, cur, post
-		while(cur != null) {
+		// save 3 node: pre, cur, post
+		while (cur != null) {
 			post = cur.getNext();
 			cur.setNext(pre);
 			pre = cur;
@@ -49,7 +49,7 @@ public class ReverseUnidirectionalLinkedList {
 		if (head == null || head.getNext() == null) {
 			return head;
 		}
-		
+
 		Node reHead = recursivelyReverse(head.getNext());
 		head.getNext().setNext(head);
 		head.setNext(null);

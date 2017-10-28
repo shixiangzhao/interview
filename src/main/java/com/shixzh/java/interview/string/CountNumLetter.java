@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 /**
  * 一个字符串，包含了空格等标点符号，写一个函数计算出出现次数最多的字母和该字母出现的次数。
+ * 
  * @author Shixiang
  *
  */
