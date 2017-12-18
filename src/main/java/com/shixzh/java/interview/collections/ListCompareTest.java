@@ -1,4 +1,4 @@
-package com.shixzh.java.interview.container;
+package com.shixzh.java.interview.collections;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
