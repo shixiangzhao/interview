@@ -8,14 +8,45 @@ import java.util.concurrent.locks.ReentrantLock;
  * volatile关键字能保证可见性，但是上面的程序错在没能保证原子性。
  * 可见性只能保证每次读取的共享变量是最新的值
  * 自增操作是不具备原子性的，它包括读取变量的原始值、进行加1操作、写入工作内存。
+ * 下面列举几个Java中使用volatile的几个场景:
+ * 1.状态标记量
+ * 2.double check
  * 
  * @author shixiang.zhao
  */
 public class VolatileTest {
 
-    public volatile int inc = 0;
+    private volatile int inc = 0;
+    private volatile static boolean flag = false;
 
     public static void main(String[] args) {
+        // testIncrease();
+        testStatusFlag();
+    }
+
+    // 1.状态标记量
+    public static void testStatusFlag() {
+        final VolatileTest test = new VolatileTest();
+        for (int i = 0; i < 10; i++) {
+            new Thread() {
+
+                public void run() {
+                    for (int j = 0; j < 10; j++) {
+                        while (!flag) {
+                            System.out.println(Thread.currentThread().getName() + ", flag is false");
+                        }
+                        setFlag();
+                    }
+                }
+            }.start();
+        }
+    }
+
+    public static void setFlag() {
+        flag = true;
+    }
+
+    public static void testIncrease() {
         final VolatileTest test = new VolatileTest();
         for (int i = 0; i < 10; i++) {
             new Thread() {
@@ -29,7 +60,7 @@ public class VolatileTest {
 
         while (Thread.activeCount() > 1) //活动的线程数
             Thread.yield(); // 线程让步
-        System.out.println(test.inc);
+        System.out.println("inc = " + test.inc);
     }
 
     public void increase() {
@@ -65,4 +96,24 @@ public class VolatileTest {
         incAto.getAndIncrement();
     }
 
+}
+
+// 2.double check
+class Singleton {
+
+    private volatile static Singleton instance = null;
+
+    private Singleton() {
+
+    }
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            synchronized (Singleton.class) {
+                if (instance == null)
+                    instance = new Singleton();
+            }
+        }
+        return instance;
+    }
 }
