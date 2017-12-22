@@ -98,7 +98,7 @@ public class VolatileTest {
 
 }
 
-// 2.double check
+// 2.double check: 使用 volatile 关键字来保证多线程下的单例
 class Singleton {
 
     private volatile static Singleton instance = null;
