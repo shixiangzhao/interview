@@ -1,5 +1,6 @@
 package com.shixzh.java.interview.thread;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -17,29 +18,30 @@ import java.util.concurrent.locks.ReentrantLock;
 public class VolatileTest {
 
     private volatile int inc = 0;
-    private volatile static boolean flag = false;
+    private static volatile boolean flag;
 
-    public static void main(String[] args) {
-        // testIncrease();
+    public static void main(String[] args) throws InterruptedException {
         testStatusFlag();
+        // testIncrease();
     }
 
     // 1.状态标记量
-    public static void testStatusFlag() {
-        final VolatileTest test = new VolatileTest();
-        for (int i = 0; i < 10; i++) {
-            new Thread() {
+    public static void testStatusFlag() throws InterruptedException {
+        Thread backgroundThread = new Thread(new Runnable() {
 
-                public void run() {
-                    for (int j = 0; j < 10; j++) {
-                        while (!flag) {
-                            System.out.println(Thread.currentThread().getName() + ", flag is false");
-                        }
-                        setFlag();
-                    }
+            public void run() {
+                int i = 0;
+                System.out.println(Thread.currentThread().getName());
+                while (!flag) {
+                    i++;
                 }
-            }.start();
-        }
+            }
+        });
+        backgroundThread.start();
+
+        //期待1s后主线程结束后台线程
+        TimeUnit.SECONDS.sleep(1);
+        setFlag();
     }
 
     public static void setFlag() {

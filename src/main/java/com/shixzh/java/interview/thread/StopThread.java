@@ -89,8 +89,6 @@ public class StopThread {
         //stopThread1();
         //stopThread2();
         stopThread3();
-        System.out.println("Over");
-
     }
 
 }
