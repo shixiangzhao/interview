@@ -50,6 +50,7 @@ public class VolatileTest {
 
     public static void testIncrease() {
         final VolatileTest test = new VolatileTest();
+        //创建十个线程，每个加1000次
         for (int i = 0; i < 10; i++) {
             new Thread() {
 
@@ -65,6 +66,7 @@ public class VolatileTest {
         System.out.println("inc = " + test.inc);
     }
 
+    //安全性失败（safety failure）
     public void increase() {
         inc++;
     }

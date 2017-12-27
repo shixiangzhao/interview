@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public class StopThread {
 
+    //状态标记量
     private static boolean stopRequested;
     private static volatile boolean stopRequestedVolatile;
 
