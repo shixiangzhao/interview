@@ -30,7 +30,7 @@ public class VolatileDoubleCheck {
         return resource;
     }
 
-    // 基本类型long和double可以支持双重检查
+    // 基本类型long和double需要双重检查，因为对它俩的读写操作是非原子的
     public int getCount() {
         if (count == 0) {
             synchronized (this) {
