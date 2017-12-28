@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+//第67条：避免过度同步
 public class ObservableSet<E> extends ForwardingSet<E> {
 
     private final List<SetObserver<E>> observers = new ArrayList<SetObserver<E>>();
@@ -137,6 +138,11 @@ public class ObservableSet<E> extends ForwardingSet<E> {
                 System.out.println(e);
                 if (e == 23) {
                     ExecutorService executor = Executors.newSingleThreadExecutor();
+                    //Executors.newScheduledThreadPool(1);
+                    //Executors.newCachedThreadPool();
+                    //Executors.newFixedThreadPool(10);
+                    //Executors.newScheduledThreadPool(2);
+                    
                     final SetObserver<Integer> observer = this;
                     try {
                         executor.submit(new Runnable() {

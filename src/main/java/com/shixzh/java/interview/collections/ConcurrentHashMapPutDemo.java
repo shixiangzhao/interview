@@ -112,8 +112,8 @@ public class ConcurrentHashMapPutDemo {
                     oldValue = count.get("a");
                     if (null == oldValue) {
                         AtomicInteger zeroValue = new AtomicInteger(0);
-                        oldValue = count.putIfAbsent("a", zeroValue);
                         //oldValue = count.put("a", zeroValue);
+                        oldValue = count.putIfAbsent("a", zeroValue);
                         if (null == oldValue) {
                             oldValue = zeroValue;
                         }
