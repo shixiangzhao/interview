@@ -1,4 +1,4 @@
-package com.shixzh.java.interview.basic;
+package com.shixzh.java.interview.string;
 
 import java.util.ArrayList;
 import java.util.Iterator;
