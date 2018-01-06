@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 第8条：覆盖equals时请遵守通用约定
  * Broken - violates symmetry!
  * equals()违反对称性
  * 
