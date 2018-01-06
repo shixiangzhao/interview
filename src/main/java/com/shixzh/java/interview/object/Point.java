@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 第8条：覆盖equals时请遵守通用约定
  * 违反传递性
  * 
  * @author shixiang.zhao

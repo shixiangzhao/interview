@@ -7,10 +7,11 @@ import java.util.List;
  * 第8条：覆盖equals时请遵守通用约定
  * Broken - violates symmetry!
  * equals()违反对称性
+ * 第12条：考虑实现Comparable接口
  * 
  * @author shixiang.zhao
  */
-public class CaseInsensitiveString {
+public class CaseInsensitiveString implements Comparable<CaseInsensitiveString> {
 
     private final String s;
 
@@ -52,5 +53,10 @@ public class CaseInsensitiveString {
         list.add(cis);
         //一旦违反了equals约定，当其他对象面对你的对象时，你完全不知道这些对象的行为会怎么样。
         System.out.println(list.contains(s));
+    }
+
+    @Override
+    public int compareTo(CaseInsensitiveString cis) {
+        return String.CASE_INSENSITIVE_ORDER.compare(s, cis.s);
     }
 }

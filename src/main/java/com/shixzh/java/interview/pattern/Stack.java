@@ -8,6 +8,8 @@ import java.util.EmptyStackException;
  * 由于栈内部维护着对这些对象的过期引用（obsolete reference）,所以容易造成内存泄漏。
  * Stack类自己管理内存（manage its own memory），对GC而言，elements数组中的所有对象引用都是同等有效的，
  * 只有程序员知道数组的非活动部分是不重要的，所以需要手动清空这些元素。
+ * 第11条：谨慎地覆盖clone
+ * 
  * @author shixiang.zhao
  */
 public class Stack {
@@ -40,10 +42,22 @@ public class Stack {
         elements[size] = null; //Eliminate obsolete reference
         return result;
     }
-    
+
     private void ensureCapacity() {
         if (elements.length == size) {
             elements = Arrays.copyOf(elements, 2 * size + 1);
+        }
+    }
+    
+    @Override
+    public Stack clone() {
+        try {
+            Stack result = (Stack)super.clone();
+            // 包含引用类型，则递归调用clone()
+            result.elements = elements.clone();
+            return result;
+        } catch(CloneNotSupportedException e) {
+            throw new AssertionError();
         }
     }
 }
