@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 第9条：覆盖equals时总要覆盖hashCode
+ * 第9条：覆盖equals时总要覆盖hashCode; 第10条：始终要覆盖toString; 第11条：谨慎地覆盖clone
+ * 
  * @author Shixiang
  *
  */
@@ -61,8 +62,17 @@ public class PhoneNumber {
 
 	@Override
 	public String toString() {
-		//return "(" + areaCode + ")" + prefix + "-" + lineNumber;
+		// return "(" + areaCode + ")" + prefix + "-" + lineNumber;
 		return String.format("(%03d) %03d-%04d", areaCode, prefix, lineNumber);
+	}
+
+	@Override
+	public PhoneNumber clone() {
+		try {
+			return (PhoneNumber) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new AssertionError(); // Can't happen
+		}
 	}
 
 	public static void main(String[] args) {
