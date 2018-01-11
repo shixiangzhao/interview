@@ -59,12 +59,12 @@ public class GenericInEffectiveJava {
 
 	}
 
+    static class Coin {
+
+    }
+
+    static class Stamp {
+
+    }
 }
 
-class Coin {
-
-}
-
-class Stamp {
-
-}
