@@ -12,6 +12,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+/**
+ * 明略数据面试题：
+ * 10个各1G的文件，如何进行行排序
+ * 
+ * @author shixiang.zhao
+ */
 public class BigFileSort {
 
     private static final String FILE_PATH_1 = "D:\\tmp\\files\\big1g1.txt";

@@ -1,5 +1,10 @@
 package com.shixzh.java.interview.generic;
 
+/**
+ * 
+ * @author shixiang.zhao
+ *
+ */
 public class GenericTest {
 
 	public static void main(String[] args) {

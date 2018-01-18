@@ -3,10 +3,12 @@ package com.shixzh.java.interview.basic;
 import java.math.BigDecimal;
 
 /**
+ * 第48条：如果需要精确的答案，请避免使用float和double
+ * float和double是用来进行科学估算
  * 如果数值范围不超过9位十进制数字，就可以使用int，如果不超过18位数字，就可以用long，
  * 如果数字可能超过18位，就必须使用BigDecimal
+ * 
  * @author shixiang.zhao
- *
  */
 public class TestFloat {
 
@@ -21,6 +23,7 @@ public class TestFloat {
         buyCandy3();
     }
 
+    //double 无法算出整数
     public static void buyCandy1() {
         double funds = 1.00;
         int itemsBought = 0;
