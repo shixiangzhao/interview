@@ -21,14 +21,15 @@ public class VolatileTest {
     private static volatile boolean flag;
 
     public static void main(String[] args) throws InterruptedException {
-        testStatusFlag();
-        // testIncrease();
+        //testStatusFlag();
+        testIncrease();
     }
 
     // 1.状态标记量
     public static void testStatusFlag() throws InterruptedException {
         Thread backgroundThread = new Thread(new Runnable() {
 
+            @Override
             public void run() {
                 int i = 0;
                 System.out.println(Thread.currentThread().getName());
@@ -55,29 +56,48 @@ public class VolatileTest {
             new Thread() {
 
                 public void run() {
-                    for (int j = 0; j < 1000; j++)
+                    for (int j = 0; j < 1000; j++) {
                         test.increase();
+                    }
                 };
             }.start();
         }
 
-        while (Thread.activeCount() > 1) //活动的线程数
+        //活动的线程数
+        while (Thread.activeCount() > 1) {
             Thread.yield(); // 线程让步
+        }
         System.out.println("inc = " + test.inc);
     }
 
-    //安全性失败（safety failure）
+    /**
+     * 安全性失败（safety failure）
+     *
+     * @author: ZhaoShixiang <br>
+     * @date:   2018/10/26 19:28
+     */
     public void increase() {
         inc++;
     }
 
-    // synchronized 之后可以保证原子性
+    /**
+     * synchronized 之后可以保证原子性
+     *
+     * @author: ZhaoShixiang <br>
+     * @date:   2018/10/26 19:28
+     */
     public synchronized void increase1() {
         inc++;
     }
 
     Lock lock = new ReentrantLock();
 
+    /**
+     * ReentrantLock可重入锁
+     *
+     * @author: ZhaoShixiang <br>
+     * @date:   2018/10/26 19:30
+     */
     public void increase2() {
         lock.lock();
         try {
@@ -87,7 +107,7 @@ public class VolatileTest {
         }
     }
 
-    /*
+    /**
      * 在java 1.5的java.util.concurrent.atomic包下提供了一些原子操作类，
      * 即对基本数据类型的 自增（加1操作），自减（减1操作）、以及加法操作（加一个数），
      * 减法操作（减一个数）进行了封装，保证这些操作是原子性操作。
@@ -102,7 +122,9 @@ public class VolatileTest {
 
 }
 
-// 2.double check: 使用 volatile 关键字来保证多线程下的单例
+/**
+ * 2.double check: 使用 volatile 关键字来保证多线程下的单例
+ */
 class Singleton {
 
     private volatile static Singleton instance = null;
@@ -114,8 +136,9 @@ class Singleton {
     public static Singleton getInstance() {
         if (instance == null) {
             synchronized (Singleton.class) {
-                if (instance == null)
+                if (instance == null) {
                     instance = new Singleton();
+                }
             }
         }
         return instance;

@@ -1,13 +1,14 @@
 package com.shixzh.java.interview.thread;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class CountDownLatchTimer {
 
     public static void main(String[] args) {
         Executor executor = Executors.newCachedThreadPool();
+//        ThreadPoolExecutor executor = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+//                60L, TimeUnit.SECONDS,
+//                new SynchronousQueue<>());
         time(executor, 10);
 
     }
@@ -19,6 +20,7 @@ public class CountDownLatchTimer {
         for (int i = 0; i < concurrency; i++) {
             executor.execute(new Runnable() {
 
+                @Override
                 public void run() {
                     ready.countDown(); // tell timer we're ready
                     try {

@@ -26,6 +26,7 @@ public class DeadLock {
 
 class Lock1 implements Runnable {
 
+    @Override
     public void run() {
         System.out.println("Lock1 running...");
         try {
@@ -46,6 +47,7 @@ class Lock1 implements Runnable {
 
 class Lock2 implements Runnable {
 
+    @Override
     public void run() {
         System.out.println("Lock2 running...");
         try {
