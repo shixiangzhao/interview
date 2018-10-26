@@ -2,6 +2,8 @@ package com.shixzh.java.interview.inherit;
 
 /**
  * class: InheritTest <br>
+ *     A a = new B();
+ * 匹配类型用等号前的地址，调用方法用等号后的实体。
  *
  * @author: ZhaoShixiang <br>
  * @date: 2018/10/25 16:12
