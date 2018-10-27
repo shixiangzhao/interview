@@ -21,9 +21,10 @@ public class ThreadLocalDataIndependent1 {
 
                 @Override
                 public void run() {
-                    int data = new Random().nextInt(20); //这里的data必须定义为局部变量，否则线程间不能实现数据独立  
+                    //这里的data必须定义为局部变量，否则线程间不能实现数据独立
+                    int data = new Random().nextInt(1000);
                     MyData myData = new MyData();
-                    myData.setName("name" + data);
+                    myData.setName("code");
                     myData.setAge(data);
                     threadLocal.set(myData);
                     new A().get();

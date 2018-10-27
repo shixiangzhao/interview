@@ -20,8 +20,9 @@ public class ThreadLocalDataIndependent2 {
 
                 @Override
                 public void run() {
-                    int data = new Random().nextInt(20); //这里的data必须定义为局部变量，否则线程间不能实现数据独立  
-                    MyData2.getInstance().setName("name" + data);
+                    //这里的data必须定义为局部变量，否则线程间不能实现数据独立
+                    int data = new Random().nextInt(1000);
+                    MyData2.getInstance().setName("code");
                     MyData2.getInstance().setAge(data);
                     new A().get();
                     new B().get();
@@ -34,8 +35,8 @@ public class ThreadLocalDataIndependent2 {
 
         public void get() {
             MyData2 myData = MyData2.getInstance();
-            System.out.println("A from " + Thread.currentThread().getName() + " get MyData :"
-                    + myData.getName() + "," + myData.getAge());
+            System.out.println("A from " + Thread.currentThread().getName() + " get MyData: "
+                    + myData.getName() + ", " + myData.getAge());
         }
     }
 
@@ -43,21 +44,23 @@ public class ThreadLocalDataIndependent2 {
 
         public void get() {
             MyData2 myData = MyData2.getInstance();
-            System.out.println("B from " + Thread.currentThread().getName() + " get MyData :"
-                    + myData.getName() + "," + myData.getAge());
+            System.out.println("B from " + Thread.currentThread().getName() + " get MyData: "
+                    + myData.getName() + ", " + myData.getAge());
         }
     }
 }
 
 class MyData2 {
 
-    private static ThreadLocal<MyData2> threadMap = new ThreadLocal<MyData2>();
+    private static ThreadLocal<MyData2> threadMap = new ThreadLocal<>();
 
     private MyData2() {
 
     }
 
-    //这里无需使用syschronized关键字  
+    /**
+     * 这里无需使用syschronized关键字
+     */
     public static MyData2 getInstance() {
         MyData2 myData = threadMap.get();
         if (myData == null) {
