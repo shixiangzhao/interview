@@ -9,11 +9,11 @@ public class ConcurrentHashMapPutDemo {
 
     public static void main(String[] args) {
         //demo1();
-        //demo2();
-        demo3();
+        demo2();
+        //demo3();
     }
 
-    /*
+    /**
      * 并发执行时，线程安全的容器只能保证自身的数据不被破坏，但无法保证业务的行为是否正确。
      * 如demo1：当两个线程同时对key=a的value+1时，因为多个线程对相同的key进行put操作时，
      * 很可能会覆盖彼此的结果，造成记录的次数比实际出现的次数少。
@@ -30,7 +30,8 @@ public class ConcurrentHashMapPutDemo {
                     if (null == value) {
                         count.put("a", 1);
                     } else {
-                        count.put("a", value + 1);//多个线程同时对value+1
+                        //多个线程同时对value+1
+                        count.put("a", value + 1);
                     }
                 }
                 endLatch.countDown();
@@ -47,7 +48,7 @@ public class ConcurrentHashMapPutDemo {
         }
     }
 
-    /*
+    /**
      * 当然可以用锁解决这个问题，但是也可以使用ConcurrentMap定义的方法:
      * V putIfAbsent(K key, V value)
      * 如果key对应的value不存在，则put进去，返回null。否则不put，返回已存在的value。
@@ -96,7 +97,7 @@ public class ConcurrentHashMapPutDemo {
         }
     }
 
-    /*
+    /**
      * 由于ConcurrentMap中不能保存value为null的值，
      * 所以需要处理不存在和已存在两种情况，不过可以使用AtomicInteger来替代。
      */
